@@ -152,3 +152,5 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 VALUES (1, 'https://example.com/images/profiles/kim.jpg', '/profile/kimcoding', '백엔드 개발자를 꿈꾸는 김코딩입니다. 함께 성장해요!');
 INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction)
 VALUES (2, 'https://example.com/images/profiles/park.png', '/profile/newpark', '데이터로 세상을 이롭게 만들고 싶은 박새로이입니다.');
+
+commit;
