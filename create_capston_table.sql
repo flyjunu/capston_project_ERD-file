@@ -91,7 +91,7 @@ CREATE TABLE user_departments (
 -- 10. 유저 기술 테이블 생성(수정 완료)
 CREATE TABLE user_skill (
     user_id NUMBER(20) NOT NULL,
-    skill_name NUMBER(20) NOT NULL,
+    skill_name varchar(100) NOT NULL,
     CONSTRAINT pk_user_skill PRIMARY KEY (user_id, skill_name),
     CONSTRAINT fk_user_skill_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
@@ -234,6 +234,7 @@ CREATE TABLE user_profiles (
     profile_introduction VARCHAR2(500),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
+
 
 
 
