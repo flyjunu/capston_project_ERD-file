@@ -32,7 +32,7 @@ CREATE TABLE user_job_preferences (
     FOREIGN KEY (hope_job_id) REFERENCES job_categories(job_id) ON DELETE CASCADE
 );
 
--- 4. 자격증 종류 테이블 생성
+-- 4. 자격증 종류 테이블 생성(모든 종류의 레벨관련 컬럼들 삭제)
 CREATE TABLE certificates (
     certificate_id INT PRIMARY KEY,
     certificate_name VARCHAR(100) NOT NULL, --자격증 이름
@@ -82,21 +82,18 @@ CREATE TABLE user_departments (
     CONSTRAINT fk_ud_department FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
 
--- 9. 기술 종류 테이블 생성
-create table skills_tag (
+-- 9. 기술 종류 테이블 생성(삭제된 테이블임으로 만들지 마세요.)
+/*create table skills_tag (
     skill_id NUMBER(20) primary key,
     skill_name varchar2(100) not null
     );
-
--- 10. 유저 기술 테이블 생성
+*/
+-- 10. 유저 기술 테이블 생성(수정 완료)
 create table user_skill (
-    skill_sq NUMBER(20) primary key, --sequence 용도
-    skill_level char(3) default '중' not null,
+    skill_id NUMBER(20) primary key, --sequence 용도
     user_id NUMBER(20) not null,
-    skill_id NUMBER(20),
-    CONSTRAINT chk_skill_level CHECK (skill_level IN ('상', '중', '하')),
+    skill_name NUMBER(20),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id),
-    FOREIGN KEY (skill_id) REFERENCES skills_tag(skill_id)
     );
 
 -- 11. 유저 대/내외 활동 내역 테이블
@@ -237,6 +234,7 @@ CREATE TABLE user_profiles (
     profile_introduction VARCHAR2(500),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
+
 
 
 
