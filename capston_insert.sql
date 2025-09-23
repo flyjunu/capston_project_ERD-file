@@ -54,17 +54,19 @@ INSERT INTO user_departments (user_id, department_id, major_type) VALUES (2, 3, 
 INSERT INTO user_departments (user_id, department_id, major_type) VALUES (2, 4, '복수전공');
 
 
--- 9. 기술 종류 테스트 데이터 삽입
+-- 9. 기술 종류 테스트 데이터 삽입(삭제 테이블임으로 사용X)
+/*
 INSERT INTO skills_tag (skill_id, skill_name) VALUES (1, '경영능력');
 INSERT INTO skills_tag (skill_id, skill_name) VALUES (2, '코딩능력');
 INSERT INTO skills_tag (skill_id, skill_name) VALUES (3, '외모능력');
 INSERT INTO skills_tag (skill_id, skill_name) VALUES (4, '언변능력');
+*/
 
 -- 10. 유저 기술 테스트 데이터 삽입
-INSERT INTO user_skill (skill_sq, skill_level, user_id, skill_id) VALUES (1, '상', 1, 1);
-INSERT INTO user_skill (skill_sq, skill_level, user_id, skill_id) VALUES (2, '상', 2, 2);
-INSERT INTO user_skill (skill_sq, skill_level, user_id, skill_id) VALUES (3, '중', 1, 3);
-INSERT INTO user_skill (skill_sq, skill_level, user_id, skill_id) VALUES (4, '중', 2, 4);
+INSERT INTO user_skill (user_id, skill_name) VALUES (1, 'Java');
+INSERT INTO user_skill (user_id, skill_name) VALUES (2, 'Python');
+INSERT INTO user_skill (user_id, skill_name) VALUES (1, 'SQL');
+INSERT INTO user_skill (user_id, skill_name) VALUES (2, 'React');
 
 -- 11. 유저/대내외활동 내역 테스트 데이터 삽입
 INSERT INTO user_activities (activity_id, user_id, activity_type, activity_name, start_date, end_date, activity_description)
@@ -154,3 +156,4 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 VALUES (2, 'https://example.com/images/profiles/park.png', '/profile/newpark', '데이터로 세상을 이롭게 만들고 싶은 박새로이입니다.');
 
 commit;
+
