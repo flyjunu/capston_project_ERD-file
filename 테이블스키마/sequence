@@ -1,0 +1,18 @@
+
+-- 1. 유저 기본 테이블용 시퀀스
+CREATE SEQUENCE users_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 2. 유저 자격증 테이블용 시퀀스
+CREATE SEQUENCE user_cert_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 3. 유저 대/내외 활동 내역 테이블용 시퀀스
+CREATE SEQUENCE activities_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
