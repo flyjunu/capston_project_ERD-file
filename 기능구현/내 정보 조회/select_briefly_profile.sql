@@ -1,6 +1,6 @@
 -- 아래 테이블에서, 학과, 기술, 자격증, 대/내외 활동을 전부 조회 가능해야한다. 
 
-SELECT
+SELECT /*+ leading(A B) index(A) index(B) use_nl(B)*/
     A.user_name as 유저명,
     A.user_email as 이메일,
     A.user_age as 나이,
@@ -13,4 +13,4 @@ SELECT
     NVL(TO_CHAR(A.user_major_credits_avg), '미등록') as 전공평균학점
 FROM users_t A, universities B
 WHERE A.user_id = :user_id
-AND A.user_university_id = B.university_id; 
+AND B.university_id = A.user_university_id;
