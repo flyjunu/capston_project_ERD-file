@@ -49,8 +49,8 @@ and B.certificate_id = A.user_certificate_id;
 create index user_activities_idx01 on user_activities(user_id);
 
 -- (2) 조회 SQL
-select activity_type as 활동_종류, activity_name as 활동명, start_date as 활동시작일,
+create index user_activities_idx01 on user_activities(user_id);
+select /*+ index(user_activities)*/ activity_type as 활동_종류, activity_name as 활동명, start_date as 활동시작일,
     end_date as 활동종료일, activity_description as 활동상세내역
 from user_activities    
 where user_id = :user_id;
-
