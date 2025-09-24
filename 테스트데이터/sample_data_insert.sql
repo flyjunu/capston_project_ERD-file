@@ -20,6 +20,7 @@ INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (2, 2);
 INSERT INTO  certificates(certificate_id, certificate_name, issuing_authority, certificate_category) VALUES (1, 'SQLP', '한국산업인력공단', '국가기술');
 INSERT INTO  certificates(certificate_id, certificate_name, issuing_authority, certificate_category) VALUES (2, 'OCP', '한국산업인력공단', '국가기술');
 INSERT INTO  certificates(certificate_id, certificate_name, issuing_authority, certificate_category) VALUES (3, '정보처리기사', '한국산업인력공단', '국가기술');
+INSERT INTO  certificates(certificate_id, certificate_name, issuing_authority, certificate_category) VALUES (4, '정보보안기사', '한국산업인력공단', '국가기술');
 
 -- 5. 유저 자격증 목록 테스트 데이터 삽입
 INSERT INTO user_certificates_info (user_certificate_id, user_id, certificate_id, issue_date, expiration_date, certificate_number, score
@@ -156,4 +157,5 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 VALUES (2, 'https://example.com/images/profiles/park.png', '/profile/newpark', '데이터로 세상을 이롭게 만들고 싶은 박새로이입니다.');
 
 commit;
+
 
