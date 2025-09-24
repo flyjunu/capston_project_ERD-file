@@ -25,7 +25,7 @@ INSERT INTO user_certificates (user_certificate_id, user_id, certificate_id, iss
 INSERT INTO user_departments (user_id, department_id, major_type) VALUES (users_seq.CURRVAL, :dept_id, :major_type);
 
 -- (5) 유저 기술 테이블에 데이터 삽입
-INSERT INTO user_skill (user_id, skill_name) VALUES (:user_id, :skill_name);
+INSERT INTO user_skill (user_id, skill_name) VALUES (users_seq.CURRVAL, :skill_name);
 
 -- (6) 유저 대/내외 활동 내역에 데이터 삽입
 INSERT INTO user_activities ( activity_id, user_id, activity_type, activity_name, start_date, end_date, activity_description ) 
@@ -38,3 +38,4 @@ EXCEPTION
         ROLLBACK;
         RAISE;
 END;
+
