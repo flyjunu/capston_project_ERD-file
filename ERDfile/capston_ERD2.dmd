@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="capston_ERD2" id="08912AE9-C938-860D-1228-E2688E9831C3" version="3.5">
+<createdBy>user</createdBy>
+<createdTime>2025-09-26 10:37:39 UTC</createdTime>
+<ownerDesignName>capston_ERD2</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>08912AE9-C938-860D-1228-E2688E9831C3</designId>
+</OSDM_Design>
