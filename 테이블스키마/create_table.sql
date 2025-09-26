@@ -82,13 +82,7 @@ CREATE TABLE user_departments (
     CONSTRAINT fk_ud_department FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
 
--- 9. 기술 종류 테이블 생성(삭제된 테이블임으로 만들지 마세요.)
-/*create table skills_tag (
-    skill_id NUMBER(20) primary key,
-    skill_name varchar2(100) not null
-    );
-*/
--- 10. 유저 기술 테이블 생성(수정 완료)
+-- 9. 유저 기술 테이블 생성(수정 완료)
 CREATE TABLE user_skill (
     user_id NUMBER(20) NOT NULL,
     skill_name varchar(100) NOT NULL,
@@ -96,7 +90,7 @@ CREATE TABLE user_skill (
     CONSTRAINT fk_user_skill_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 11. 유저 대/내외 활동 내역 테이블
+-- 10. 유저 대/내외 활동 내역 테이블
 CREATE TABLE user_activities (
     activity_id NUMBER(20) primary key,
     user_id NUMBER(20) not null,
@@ -108,9 +102,10 @@ CREATE TABLE user_activities (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
 
--- 12. 대/내외 활동 게시판 테이블
+-- 11. 대/내외 활동 게시판 테이블
 CREATE TABLE activity_postings (
     posting_id NUMBER(20) PRIMARY KEY, -- 공고의 고유 ID
+    user_id NUMBER(20) NOT NULL, -- 작성자 표기
     activity_type VARCHAR2(30) NOT NULL, -- '공모전', '대외활동', '인턴', '봉사활동' 등
     title VARCHAR2(255) NOT NULL, -- 공고 제목
     host_organization VARCHAR2(100) NOT NULL, -- 주최 기관 (예: '삼성전자', '코이카')
@@ -123,9 +118,10 @@ CREATE TABLE activity_postings (
     application_url VARCHAR2(1000), -- 지원 링크
     created_at TIMESTAMP DEFAULT SYSTIMESTAMP, -- 공고 등록일
     view_count number(20) DEFAULT 0  -- 조회수
+    CONSTRAINT fk_ap_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 13. 팀원 모집 게시판 테이블 생성
+-- 12. 팀원 모집 게시판 테이블 생성
 CREATE TABLE team_recruitments (
     recruitment_id NUMBER(20) PRIMARY KEY, -- 팀원 모집 게시글의 고유 ID
     posting_id NUMBER(20),  -- 내부공고
@@ -143,7 +139,7 @@ CREATE TABLE team_recruitments (
     CONSTRAINT chk_tr_status CHECK (status IN ('모집중', '모집완료'))
 );
 
--- 14. 팀원모집 지원자 목록
+-- 13. 팀원모집 지원자 목록
 CREATE TABLE team_applications (
     application_id NUMBER(20) PRIMARY KEY, -- 지원 신청의 고유 ID
     recruitment_id NUMBER(20) NOT NULL, -- 지원하려는 팀 모집 게시글 ID
@@ -157,7 +153,7 @@ CREATE TABLE team_applications (
     CONSTRAINT uq_application UNIQUE (recruitment_id, applicant_user_id)
 );
 
--- 15. 결성된 팀원 테이블
+-- 14. 결성된 팀원 테이블
 CREATE TABLE team_members (
     recruitment_id NUMBER(20) NOT NULL, -- 팀 모집 게시글 ID (team_recruitments 참조)
     user_id NUMBER(20) NOT NULL, -- 팀에 속한 사용자의 ID (users_t 참조)
@@ -168,16 +164,18 @@ CREATE TABLE team_members (
     CONSTRAINT fk_tm_user FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
 
---- 16. 공지사항 게시판 테이블
+--- 15. 공지사항 게시판 테이블
 CREATE TABLE notices (
     notice_id NUMBER(20) PRIMARY KEY,
+    user_id NUMBER(20) NOT NULL, -- 작성자 표기용도
     notice_title VARCHAR2(100) NOT NULL,
     notice_content CLOB,
     upload_date TIMESTAMP DEFAULT SYSTIMESTAMP,
-    view_count NUMBER(20) DEFAULT 0
+    view_count NUMBER(20) DEFAULT 0,
+    CONSTRAINT fk_notices_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 17. 직종별 게시판 테이블 
+-- 16. 직종별 게시판 테이블 
 CREATE TABLE job_community_board (
     post_id NUMBER(20) PRIMARY KEY,
     job_id NUMBER(5) NOT NULL,
@@ -191,7 +189,7 @@ CREATE TABLE job_community_board (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 18. QnA 게시판(질문) 테이블 생성
+-- 17. QnA 게시판(질문) 테이블 생성
 CREATE TABLE qna_questions (
     question_id NUMBER(20) PRIMARY KEY,
     user_id NUMBER(20) NOT NULL,
@@ -205,7 +203,7 @@ CREATE TABLE qna_questions (
     CONSTRAINT chk_question_status CHECK (status IN ('답변 대기', '답변 완료'))
 );
 
--- 19. QnA 게시판(답변) 테이블 생성
+-- 18. QnA 게시판(답변) 테이블 생성
 CREATE TABLE qna_answers (
     answer_id NUMBER(20) PRIMARY KEY,
     question_id NUMBER(20) NOT NULL,
@@ -218,7 +216,7 @@ CREATE TABLE qna_answers (
    
 );
 
--- 20. 유저 비교 대학선택 저장 테이블
+-- 19. 유저 비교 대학선택 저장 테이블
 create table user_compare_university (
     university_id number(20) not null,  
     user_id number(20) not null,
@@ -226,7 +224,7 @@ create table user_compare_university (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id)
     );
 
--- 21. 유저 프로핑 저장 테이블
+-- 20. 유저 프로핑 저장 테이블
 CREATE TABLE user_profiles (
     user_id NUMBER(20) PRIMARY KEY, 
     profile_image_url VARCHAR2(1000),
@@ -234,6 +232,7 @@ CREATE TABLE user_profiles (
     profile_introduction VARCHAR2(500),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
+
 
 
 
