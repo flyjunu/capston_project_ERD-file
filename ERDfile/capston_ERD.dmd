@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="capston_ERD" id="165B5A0D-E8C9-8190-495C-13C24088D061" version="3.5">
-<createdBy>user</createdBy>
-<createdTime>2025-09-22 15:16:17 UTC</createdTime>
-<ownerDesignName>capston_ERD</ownerDesignName>
-<capitalNames>false</capitalNames>
-<designId>165B5A0D-E8C9-8190-495C-13C24088D061</designId>
-</OSDM_Design>
