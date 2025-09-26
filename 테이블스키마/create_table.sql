@@ -117,7 +117,7 @@ CREATE TABLE activity_postings (
     poster_image_url VARCHAR2(1000), -- 포스터 이미지 URL
     application_url VARCHAR2(1000), -- 지원 링크
     created_at TIMESTAMP DEFAULT SYSTIMESTAMP, -- 공고 등록일
-    view_count number(20) DEFAULT 0  -- 조회수
+    view_count number(20) DEFAULT 0,  -- 조회수
     CONSTRAINT fk_ap_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
@@ -232,6 +232,7 @@ CREATE TABLE user_profiles (
     profile_introduction VARCHAR2(500),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
+
 
 
 
