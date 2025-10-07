@@ -1,5 +1,7 @@
--- 1. 회원 가입 기능구현(아래 6개의 SQL은 동시에 실행되어야함. 
+-- 1. 회원 가입 기능구현
 -- 아래코드는 모두 시퀸스를 만든 후에야 정상작동 함으로 이를 유의할 것.
+-- 자격증 등 2개이상의 정보를 입력하기 위해서는 insert문에 for 문을 돌려서 여러개의 객체를 입력받게
+-- 백엔드에서 만져줘야한다. 
 
 -- (0) 이메일 인증하기(이메일이 인증된 상태여야 아래 회원가입이 작동하도록 만들 것)
 
@@ -17,9 +19,6 @@ AND auth_code = :code      -- 사용자에게 입력받을 코드
 AND is_used = 0             -- 인증코드 사용여부
 AND expires_at > SYSTIMESTAMP; -- 인증만료시간 안지났는지 체크
 
-
-
-BEGIN
 
 -- (1) user_t 테이블에 기본정보 삽입
 INSERT INTO users_t (
@@ -53,13 +52,5 @@ VALUES (activities_seq.NEXTVAL, users_seq.CURRVAL, :activity_type, :activity_nam
 -- (7) 인증 테이블 업데이트
 update auth_codes set is_used = 1 where user_email = :email;
 
-
-commit; 
-
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        RAISE;
-END;
 
 
