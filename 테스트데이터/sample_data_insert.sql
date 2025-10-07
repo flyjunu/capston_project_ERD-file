@@ -141,6 +141,7 @@ INSERT INTO user_compare_university (university_id, user_id) VALUES (3, 1);
 INSERT INTO user_compare_university (university_id, user_id) VALUES (4, 1);
 INSERT INTO user_compare_university (university_id, user_id) VALUES (2, 2);
 INSERT INTO user_compare_university (university_id, user_id) VALUES (3, 2);
+INSERT INTO user_compare_university (university_id, user_id) VALUES (2, 1);
 
 -- 20. 유저간략프로픽 테스트 데이터 삽입
 INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction)
@@ -149,6 +150,7 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 VALUES (2, 'https://example.com/images/profiles/park.png', '/profile/newpark', '데이터로 세상을 이롭게 만들고 싶은 박새로이입니다.');
 
 commit;
+
 
 
 
