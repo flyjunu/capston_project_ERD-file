@@ -1,4 +1,6 @@
 -- 사용자에게 4개씩 추천학교들을 선택하여 보여주는 쿼리입니다. 
+-- 회원가입 후 실행되야 합니다. 
+
 CREATE INDEX universities_idx02 ON universities (university_level DESC, university_name ASC);
 
 SELECT *
@@ -19,3 +21,6 @@ FROM (
     WHERE ROWNUM <= (:page * 4)
 )
 WHERE no >= (:page - 1) * 4 + 1;
+
+-- 비교 대학을 선택할 때 마다 아래 insert문이 실행되어야 한다. (대학id, 유저id)
+insert into user_compare_university VALUES (:university_id, :user_id);
