@@ -15,6 +15,21 @@ create table users_t (user_id number(20) primary key,
                       last_login_at TIMESTAMP, -- 마지막 로그인
                       CONSTRAINT chk_gender_01 CHECK (user_gender IN ('남', '여')),
                       CONSTRAINT chk_state_01 CHECK (user_state IN ('대학생', '졸업자', '취준생'))); 
+-- 1.1 인증 테이블 생성(회원 가입시 이메일인증, 비밀번호 변경 시 사용)
+CREATE TABLE auth_codes (
+    auth_id         NUMBER(20) PRIMARY KEY,             -- 인증 고유 ID
+    user_email      VARCHAR2(255) NOT NULL,             -- 사용자 이메일 (users_t와 연결)
+    auth_code       VARCHAR2(255) NOT NULL,             -- 인증 코드 또는 토큰
+    auth_purpose    VARCHAR2(30) NOT NULL,              -- 인증 목적 (예: EMAIL_VERIFICATION, PASSWORD_RESET)
+    is_used         NUMBER(1) DEFAULT 0 NOT NULL,       -- 코드 사용 여부 (0: 미사용, 1: 사용됨)
+    created_at      TIMESTAMP DEFAULT SYSTIMESTAMP,     -- 코드 생성 시간
+    expires_at      TIMESTAMP NOT NULL,                 -- 코드 만료 시간
+    CONSTRAINT chk_auth_purpose CHECK (auth_purpose IN ('EMAIL_VERIFICATION', 'PASSWORD_RESET')),
+    CONSTRAINT chk_is_used CHECK (is_used IN (0, 1))
+);
+
+CREATE SEQUENCE seq_auth_codes;
+
 
 -- 2. 직종 종류 테이블 생성
 CREATE TABLE job_categories (
@@ -232,6 +247,7 @@ CREATE TABLE user_profiles (
     profile_introduction VARCHAR2(500),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
+
 
 
 
