@@ -16,7 +16,7 @@ from (select rownum as rnum, x.*
           and ujp.hope_job_id = jc.job_id                                  
                     )                       
         and u.user_id != :user_id
-        GROUP BY -- LISTAGG를 사용하기 위해 유저 정보로 그룹핑
+        GROUP BY 
             u.user_id,
             u.user_name,
             u.user_grade
