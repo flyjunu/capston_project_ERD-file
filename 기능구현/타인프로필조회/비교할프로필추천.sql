@@ -1,3 +1,4 @@
+-- user_id는 바로 출력되면 안된다. 
 
 select * 
 from (select rownum as rnum, x.*
