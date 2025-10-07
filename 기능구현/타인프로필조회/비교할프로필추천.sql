@@ -21,12 +21,8 @@ from (select rownum as rnum, x.*
           AND up.user_id = u.user_id
                     )                       
         and u.user_id != :user_id
-        GROUP BY 
-            u.user_id,
-            u.user_name,
-            u.user_grade
-        ORDER BY
-            u.user_id
+        GROUP BY u.user_id, u.user_name, u.user_grade, up.profile_image_url, up.profile_link, up.profile_introduction
+        ORDER BY u.user_id
                ) x
          where rownum <= (:page * 5) )
 where RNUM >= (:page-1) * 5
