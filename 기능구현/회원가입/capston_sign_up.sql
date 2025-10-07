@@ -9,7 +9,7 @@
 INSERT INTO auth_codes (auth_id, user_email, auth_code, auth_purpose, expires_at)
 VALUES (seq_auth_codes.NEXTVAL, :email, :code, :purpose, :expiration_time);  
 
--- ... 이메일 전송으로 보안코드 (백엔드)
+-- 이메일 전송으로 보안코드 보내기 (백엔드가 해야함)
 
 -- 인증번호 확인하기.
 select count(*) -- 결과가 1이면 인증완료
@@ -51,6 +51,7 @@ VALUES (activities_seq.NEXTVAL, users_seq.CURRVAL, :activity_type, :activity_nam
 
 -- (7) 인증 테이블 업데이트
 update auth_codes set is_used = 1 where user_email = :email;
+
 
 
 
