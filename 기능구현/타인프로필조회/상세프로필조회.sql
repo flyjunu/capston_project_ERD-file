@@ -34,5 +34,5 @@ FROM
     users_t A,
     universities C
 WHERE
-    A.user_id = :user_id
+    A.user_id = :others_user_id 
 AND C.university_id = A.user_university_id;
