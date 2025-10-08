@@ -1,4 +1,5 @@
 -- (1) 외부활동, 공모전 게시판 글 수정하기
+-- 게시판 id를 알려면 프론트에서 id값을 가지고 있어야한다.
 
 UPDATE activity_postings
    SET
