@@ -2,11 +2,39 @@
 공모전 데이터를 조회한다.
 -- 필터링 기능으로 공모 분야 선택이 가능해야한다.
 
--- (1) 모든 공모전 출력. 
-select * from activity_postings where recruitment_end_date >= sysdate order by recruitment_end_date desc;
+-- (공모전 검색 조건)
+1. (defalt) 모든 공모전 출력
+2. 설정한 직종의 공모전 출력. -- 그러면 범위가 너무 좁아지고(직종이 20만개인데, 그중 정확히 준비 직종 일치 불가능
+    관리가 힘들어짐 (취소요청 하자) 
+3. 공모 분야로 검색한다.
+4. 검색어로 검색시 출력(아래 파이썬코드참조) 
+   
+-- (1) 모든 모집중인 공모전 출력. 
+select * 
+    from activity_postings 
+    where recruitment_end_date >= sysdate 
+    order by recruitment_end_date desc;
 
--- (2) 지난 공모전 출력
-select * from activity_postings where recruitment_end_date < sysdate order by recruitment_end_date desc;
+-- 활동 타입(activity_type에서 XX공모전같은 걸로 종류를 나눠야 할것같음. )
+-- 공모전 종류를 따로 테이블에 담아 둘까 생각했는데 컬럼수가 많아봐야 50개정도일텐데 조회성능상 굳이굳이 인것같기도?
+-- 애초에 varchar로 내가 데이터타입을 저장했으니까 굳이 테이블만들지는 말자. ㅇㅇ 
+-- 백엔드에서 타입 지정해야함.
+
+-- (1.1) 모집 기간이 지난 공모전 출력
+select * 
+    from activity_postings 
+    where recruitment_end_date < sysdate 
+    order by recruitment_end_date desc;
+
+-- (3) 자신이 지정한 분야의 공모전, 활동만 출력하기.
+CREATE INDEX activity_postings_idx01 ON activity_postings (activity_type, recruitment_end_date);
+select * 
+    from activity_postings 
+    where recruitment_end_date < sysdate
+    and activity_type = :activity_type
+    order by recruitment_end_date desc;
+-- 
+
 
 -- (3) 기타 필터링 조건대로 검색기능 구현
 -- 백엔드에서 SQL을 조합해서 넣어야한다. 
