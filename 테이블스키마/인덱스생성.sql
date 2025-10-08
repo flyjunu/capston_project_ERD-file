@@ -3,13 +3,15 @@
 -- 1.1 인증 테이블
 
 -- 2. 직종 종류 테이블
+create index job_categories_idx01 on job_categories(parent_job_id);
 
 -- 3. 유저 희망직종
-
+create index user_job_preferences_idx01 on user_job_preferences(user_id);
 -- 4. 자격증 종류 테이블
 
 -- 5. 유저 자격증 목록 테이블
-
+create index user_certificates_info_idx01 on user_certificates_info(user_id)
+  
 -- 6. 대학 정보 테이블 
 
 -- 7. 학과 종류 테이블
@@ -17,12 +19,13 @@
 -- 8. 유저 학과 테이블
 create index user_departments_idx01 on user_departments(user_id);
 
-
 -- 9. 유저 기술 테이블
 
 -- 10. 유저 대/내외 활동 내역 테이블
+create index user_activities_idx01 on user_activities(user_id);
 
 -- 11. 대/내외 활동 게시판 테이블
+CREATE INDEX activity_postings_idx01 ON activity_postings (activity_type, recruitment_end_date);
 
 -- 12. 팀원 모집 게시판 테이블 생성
 
@@ -33,7 +36,7 @@ create index user_departments_idx01 on user_departments(user_id);
 -- 15. 공지사항 게시판 테이블
 
 -- 16. 직종별 게시판 테이블 
-
+CREATE INDEX job_community_board_idx01 ON job_community_board (job_id, created_at);
 -- 17. QnA 게시판(질문) 테이블 생성
 
 -- 18. QnA 게시판(답변) 테이블 생성
