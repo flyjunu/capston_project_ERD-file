@@ -1,18 +1,59 @@
-
--- 1. 유저 기본 테이블용 시퀀스
+-- 1. 사용자 테이블 (users_t) 용
 CREATE SEQUENCE users_seq
     START WITH 1
     INCREMENT BY 1
     NOCACHE;
 
--- 2. 유저 자격증 테이블용 시퀀스
+-- 2. 인증 코드 테이블 (auth_codes) 용
+CREATE SEQUENCE seq_auth_codes
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 3. 유저 자격증 테이블 (user_certificates) 용
 CREATE SEQUENCE user_cert_seq
     START WITH 1
     INCREMENT BY 1
     NOCACHE;
 
--- 3. 유저 대/내외 활동 내역 테이블용 시퀀스
+-- 4. 유저 대/내외 활동 내역 (user_activities) 용
 CREATE SEQUENCE activities_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 5. 대/내외 활동 게시판 (activity_postings) 용
+CREATE SEQUENCE activity_postings_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 6. 팀원 모집 게시판 (team_recruitments) 용
+CREATE SEQUENCE team_recruitments_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 7. 팀원 지원 테이블 (team_applications) 용
+CREATE SEQUENCE team_applications_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 8. 직종별 커뮤니티 (job_community_board) 용
+CREATE SEQUENCE job_community_board_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 9. Q&A 질문 테이블 (qna_questions) 용
+CREATE SEQUENCE qna_questions_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 10. Q&A 답변 테이블 (qna_answers) 용
+CREATE SEQUENCE qna_answers_seq
     START WITH 1
     INCREMENT BY 1
     NOCACHE;
