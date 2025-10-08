@@ -1,3 +1,5 @@
+-- (1) 팀원 모집 게시글조회
+
 SELECT
     tr.recruitment_id,
     tr.title,
@@ -14,3 +16,8 @@ WHERE
     tr.status = '모집중'
 ORDER BY
     tr.created_at DESC;
+
+-- (2) 특정 게시글 조회
+SELECT *
+  FROM team_recruitments
+ WHERE recruitment_id = :recruitment_id;
