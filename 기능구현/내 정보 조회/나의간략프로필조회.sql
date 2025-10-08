@@ -1,4 +1,4 @@
--- 메인화면의 나의 간략 프로필 
+-- (1) 메인화면에 나타날 나의 간략 프로필 
 
 select A.user_name AS 이름, A.user_grade AS 학년, B.job_name AS 희망직종
 from users_t A, job_categories B, user_job_preferences C
