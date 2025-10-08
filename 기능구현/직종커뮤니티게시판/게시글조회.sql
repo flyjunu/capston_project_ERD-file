@@ -5,59 +5,52 @@
 -- 해결방법 1. 일정한 레벨의 부모 카테고리 까지는 전부 보여줄까? (트리구조)
 -- 해결방법 2. 사용자가 l계층씩 확장해나가면서, 검색할 수 있도록 해야할까?
 -- (개선전) ---------------------------------------------------------------------
-SELECT
-    jcb.post_id,
-    jcb.post_title,
-    u.user_name,
-    jcb.created_at,
-    jcb.view_count,
-    jcb.like_count
-FROM
-    job_community_board jcb, users_t u
-WHERE jcb.job_id = :job_id 
-and jcb.user_id = u.user_id
-ORDER BY jcb.created_at DESC;
 
---(개선 후) ----------------------------------------------------------------------------- 
+-- (1) 특정 상위 직군 게시판 조회
 SELECT *
 FROM (
     SELECT
         ROWNUM AS rnum,
         x.*
     FROM (
-        SELECT u.user_id, u.user_name, NVL(TO_CHAR(u.user_grade), '미등록') AS user_grade,
-            up.profile_image_url, up.profile_link, up.profile_introduction,
-            LISTAGG(jc.job_name, ', ') WITHIN GROUP (ORDER BY jc.job_name) AS matching_jobs
-        FROM
-            users_t u, user_job_preferences ujp, job_categories jc, user_compare_university ucu,
-            user_profiles up, job_community_board jcb
-        WHERE u.user_id = ujp.user_id
-            AND ujp.hope_job_id = jc.job_id
-            AND u.user_university_id = ucu.university_id
-            AND u.user_id = up.user_id(+)
-            AND u.user_id = jcb.user_id
-            AND ucu.user_id = :user_id
-            AND ujp.hope_job_id IN (SELECT hope_job_id 
-                                    FROM user_job_preferences 
-                                    WHERE user_id = :user_id
-            )
-            AND u.user_id != :user_id
-            AND TO_CHAR(jcb.job_id) LIKE :selected_top_level_job_id || '%'
-        GROUP BY
-            u.user_id, u.user_name, u.user_grade, up.profile_image_url, up.profile_link, up.profile_introduction
-        ORDER BY
-            u.user_id
+        SELECT jcb.post_id, jcb.post_title, u.user_name, jcb.created_at, jcb.view_count, jcb.like_count
+        FROM job_community_board jcb, users_t u      
+        WHERE jcb.user_id = u.user_id 
+        AND TO_CHAR(jcb.job_id) LIKE :selected_top_level_job_id || '%' -- 클릭시 job_id 가 들어가야함.
+                                                                       -- 프론트,백에서 작업해야함 이거.
+                                                                       -- 22 클릭시 22가 들어가야함
+        ORDER BY jcb.created_at DESC
     ) x
-    WHERE ROWNUM <= (:page * 20)
+    WHERE ROWNUM <= (:page * 10) -- 한 페이지에 10개씩
 )
-WHERE rnum >= ((:page - 1) * 20) + 1;
+WHERE rnum >= ((:page - 1) * 10) + 1;
 
--- (2) 조회수 증가
-UPDATE job_community_board
-   SET view_count = view_count + 1
- WHERE post_id = :post_id;
+-- (2) 내 관심직종 글만 조회
+SELECT *
+FROM (
+    SELECT
+        ROWNUM AS rnum, x.*     
+    FROM (
+        SELECT jcb.post_id, jcb.post_title, u.user_name, jcb.created_at, jcb.view_count, jcb.like_count
+        FROM job_community_board jcb, users_t u
+        WHERE jcb.user_id = u.user_id 
+        AND jcb.job_id IN (SELECT hope_job_id
+                           FROM user_job_preferences
+                           WHERE user_id = :current_user_id)    
+        ORDER BY jcb.created_at DESC 
+    ) x
+    WHERE ROWNUM <= (:page * 10) -- 한 페이지에 10개씩
+)
+WHERE rnum >= ((:page - 1) * 10) + 1;
 
 -- (3) 게시글 상세 정보 보기
 SELECT /*+ index(job_community_board) */ *
   FROM job_community_board
  WHERE post_id = :post_id;
+
+-- (4) 조회수 증가
+UPDATE job_community_board
+   SET view_count = view_count + 1
+ WHERE post_id = :post_id;
+
+
