@@ -9,7 +9,8 @@ SELECT *
    FROM qna_questions 
    WHERE question_id = :question_id;
 -- (답변 목록)
-SELECT a.answer_id,a.answer_content, u.user_name AS answerer_name, a.created_at
+SELECT /*+ leading(a u) index(a) use_nl(u) index(u) */
+   a.answer_id,a.answer_content, u.user_name AS answerer_name, a.created_at
 FROM qna_answers a, users_t u
 WHERE a.user_id = u.user_id
 and a.question_id = :question_id
