@@ -5,7 +5,9 @@ UPDATE qna_questions
 
 -- 2. 질문 상세 정보와 모든 답변 함께 가져오기
 -- (질문 정보)
-SELECT * FROM qna_questions WHERE question_id = :question_id;
+SELECT * 
+   FROM qna_questions 
+   WHERE question_id = :question_id;
 -- (답변 목록)
 SELECT
     a.answer_id,
