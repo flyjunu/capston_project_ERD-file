@@ -6,15 +6,47 @@ VALUES (1, '김코딩', 'kim.coding@example.com', 24, '남', '대학생', 4, 1, 
 INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password)
 VALUES (2, '박새로이', 'park.new@example.com', 26, '여', '취준생', NULL, 2, '데이터 분석가 준비중', 1234);
 
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (3, '최백엔드', 'choi.backend@example.com', 23, '남', '대학생', 3, 2, '백엔드 로드맵', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (4, '정프론트', 'jung.frontend@example.com', 25, '여', '대학생', 4, 3, '프론트엔드 로드맵', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (5, '강서버', 'kang.server@example.com', 26, '남', '취준생', NULL, 4, '클라우드 엔지니어 준비', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (6, '윤디비', 'yoon.db@example.com', 22, '여', '대학생', 2, 1, '데이터베이스 전문가', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (7, '한개발', 'han.dev@example.com', 24, '남', '대학생', 4, 2, '풀스택 개발자', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (8, '오코딩', 'oh.coding@example.com', 27, '여', '취준생', NULL, 3, '알고리즘 스터디', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (9, '임네트워크', 'lim.network@example.com', 23, '남', '대학생', 3, 4, '네트워크 보안 전문가', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (10, '송자바', 'song.java@example.com', 25, '여', '대학생', 4, 1, '자바 백엔드 개발자', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (11, '홍기획', 'hong.pm@example.com', 26, '남', '취준생', NULL, 2, 'IT 서비스 기획자', 1234);
+INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password) VALUES (12, '배분석', 'bae.analytics@example.com', 22, '여', '대학생', 2, 3, '데이터 분석가', 1234);
+
+
+
 -- 2. 직종 종류 테스트 데이터 삽입
 INSERT INTO job_categories(job_id, parent_job_id, job_name) VALUES (1, null, '개발자');
 INSERT INTO job_categories(job_id, parent_job_id, job_name) VALUES (2, 1, 'DBA');
+INSERT INTO job_categories(job_id, parent_job_id, job_name) VALUES (3, 1, '데이터분석가');
+INSERT INTO job_categories(job_id, parent_job_id, job_name) VALUES (4, 1, 'ios개발자');
+INSERT INTO job_categories(job_id, parent_job_id, job_name) VALUES (5, 1, '안드로이드개발자');
 
 -- 3. 유저 희망 직종 테스트 데이터 삽입
 INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (1, 1);
 INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (1, 2);
 INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (2, 1);
 INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (2, 2);
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (3, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (4, 2); -- 프론트엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (5, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (5, 3);
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (6, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (7, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (7, 2); -- 프론트엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (8, 2); -- 프론트엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (9, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (9, 5);
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (10, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (11, 2); -- 프론트엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (11, 4);
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (12, 1); -- 백엔드 (겹침)
+INSERT INTO user_job_preferences(user_id, hope_job_id) VALUES (12, 3);
+
 
 -- 4. 자격증 종류 테스트 데이터 삽입
 INSERT INTO  certificates(certificate_id, certificate_name, issuing_authority, certificate_category) VALUES (1, 'SQLP', '한국산업인력공단', '국가기술');
@@ -148,8 +180,22 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 VALUES (1, 'https://example.com/images/profiles/kim.jpg', '/profile/kimcoding', '백엔드 개발자를 꿈꾸는 김코딩입니다. 함께 성장해요!');
 INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction)
 VALUES (2, 'https://example.com/images/profiles/park.png', '/profile/newpark', '데이터로 세상을 이롭게 만들고 싶은 박새로이입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (3, 'http://example.com/img/3.jpg', 'http://github.com/choiback', '백엔드 개발자를 꿈꾸는 최백엔드입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (4, 'http://example.com/img/4.jpg', 'http://github.com/jungfront', '사용자 경험을 중시하는 정프론트입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (5, 'http://example.com/img/5.jpg', 'http://github.com/kangserver', '튼튼한 서버를 만드는 강서버입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (6, 'http://example.com/img/6.jpg', 'http://github.com/yoondb', '데이터를 사랑하는 윤디비입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (7, 'http://example.com/img/7.jpg', 'http://github.com/handev', '풀스택 개발자 한개발입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (8, 'http://example.com/img/8.jpg', 'http://github.com/ohcoding', '함께 성장하고 싶은 오코딩입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (9, 'http://example.com/img/9.jpg', 'http://github.com/limnetwork', '보안 전문가를 목표로 하는 임네트워크입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (10, 'http://example.com/img/10.jpg', 'http://github.com/songjava', '자바에 자신있는 송자바입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (11, 'http://example.com/img/11.jpg', 'http://github.com/hongpm', '좋은 서비스를 만들고 싶은 홍기획입니다.');
+INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_introduction) VALUES (12, 'http://example.com/img/12.jpg', 'http://github.com/baeana', '데이터 속에서 인사이트를 찾는 배분석입니다.');
+
+
+
 
 commit;
+
 
 
 
