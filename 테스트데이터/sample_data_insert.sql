@@ -60,7 +60,7 @@ INSERT INTO user_certificates_info (user_certificate_id, user_id, certificate_id
 INSERT INTO user_certificates_info (user_certificate_id, user_id, certificate_id, issue_date, expiration_date, certificate_number, score
 ) VALUES (2, 2, 2, '2024-05-20', null, '12345-ABC-67890', '500');
 INSERT INTO user_certificates_info (user_certificate_id, user_id, certificate_id, issue_date, expiration_date, certificate_number, score
-) VALUES (3, 1, 1, '2024-05-20', '2026-05-19', '12345-ABC-67890', '0');
+) VALUES (3, 1, 1, '2024-05-20', '2026-05-19', '12345-ABC-67890', null);
 INSERT INTO user_certificates_info (user_certificate_id, user_id, certificate_id, issue_date, expiration_date, certificate_number, score
 ) VALUES (4, 2, 2, '2024-05-20', null, '12345-ABC-67890', '200');
 
@@ -195,6 +195,7 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 
 
 commit;
+
 
 
 
