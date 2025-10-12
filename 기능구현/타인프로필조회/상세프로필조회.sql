@@ -27,7 +27,7 @@ SELECT /*+ leading (A C) use_nl(C) index(A) index(C) */
            FROM user_activities I
           WHERE I.user_id = A.user_id), '활동내역없음') AS 대내외_활동내역,
       NVL((SELECT /*+ leading(G H) index(G) index(H) use_nl(H) no_unnest */
-                LISTAGG(H.certificate_name || ' (' || TO_CHAR(G.issue_date, 'YYYY-MM-DD') || ')', ', ') WITHIN GROUP (ORDER BY G.issue_date)
+                LISTAGG(H.certificate_name || ' (' || TO_CHAR(G.issue_date, 'YYYY-MM-DD') || ')' || DECODE(G.score, NULL, '', ' (점수: ' || G.score || ' 점)'), ', ') WITHIN GROUP (ORDER BY G.issue_date)
            FROM user_certificates_info G, certificates H
           WHERE G.user_id = A.user_id AND H.certificate_id = G.certificate_id), '보유자격증없음') AS 보유_자격증
 FROM
@@ -36,3 +36,4 @@ FROM
 WHERE
     A.user_id = :others_user_id 
 AND C.university_id = A.user_university_id;
+
