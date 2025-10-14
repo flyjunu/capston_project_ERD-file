@@ -31,6 +31,23 @@ CREATE TABLE auth_codes (
 
 CREATE SEQUENCE seq_auth_codes;
 
+-- 1.2 회사 테이블 생성
+create table company (
+  company_id number(20) primary key, --회사 id
+  company_name VARCHAR2(255) NOT NULL -- 회사 명
+ );
+  
+-- 1.3 회사 요구기 테이블
+CREATE TABLE company_skill (
+    company_id NUMBER(20) NOT NULL, -- 회사 id
+    skill_name VARCHAR2(100) NOT NULL, -- 기술 id
+    skill_type VARCHAR2(20) NOT NULL, -- 기술 타입(우대, 필수요건)
+    CONSTRAINT pk_company_skill PRIMARY KEY (company_id, skill_name),
+    CONSTRAINT fk_company_skill_company FOREIGN KEY (company_id) REFERENCES company(company_id),
+    CONSTRAINT chk_skill_type CHECK (skill_type IN ('필수', '우대')) -- 'REQUIRED'는 필수, 'PREFERRED'는 우대
+);
+
+
 
 -- 2. 직종 종류 테이블 생성
 CREATE TABLE job_categories (
@@ -248,6 +265,7 @@ CREATE TABLE user_profiles (
     profile_introduction VARCHAR2(500),
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
+
 
 
 
