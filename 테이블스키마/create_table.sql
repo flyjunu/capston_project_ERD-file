@@ -3,7 +3,7 @@ create table users_t (user_id number(20) primary key,
                       user_name varchar2(50) not null,
                       user_email varchar2(255) unique not null ,
                       user_password varchar2(255) not null,
-                      user_age number(3),
+                      user_birthday varchar2(3),
                       user_gender char(3),
                       user_state varchar2(20) default '취준생' not null,
                       user_grade number(1),
@@ -11,7 +11,7 @@ create table users_t (user_id number(20) primary key,
                       user_roadmap CLOB, -- 유저 로드맵 또는 상세 소개
                       user_credit_avg number(15,2), -- 평균 학점
                       user_major_credits_avg number(15,2), -- 전공 평균 학점
-                      phone_number varchar2(255) unique, -- 휴대폰번호
+                      phone_number varchar2(255) unique not null, -- 휴대폰번호
                       created_at TIMESTAMP default SYSTIMESTAMP, -- 가입일시
                       last_login_at TIMESTAMP, -- 마지막 로그인
                       CONSTRAINT chk_gender_01 CHECK (user_gender IN ('남', '여')),
@@ -285,6 +285,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
