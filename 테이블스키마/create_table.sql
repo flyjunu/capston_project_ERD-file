@@ -11,7 +11,7 @@ create table users_t (user_id number(20) primary key,
                       user_roadmap CLOB, -- 유저 로드맵 또는 상세 소개
                       user_credit_avg number(15,2), -- 평균 학점
                       user_major_credits_avg number(15,2), -- 전공 평균 학점
-                      phone_number varchar2(255) unique not null, -- 휴대폰번호
+                      phone_number char(13) unique not null, -- 휴대폰번호
                       created_at TIMESTAMP default SYSTIMESTAMP, -- 가입일시
                       last_login_at TIMESTAMP, -- 마지막 로그인
                       CONSTRAINT chk_gender_01 CHECK (user_gender IN ('남', '여')),
@@ -285,6 +285,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
