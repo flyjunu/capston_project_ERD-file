@@ -3,7 +3,7 @@ create table users_t (user_id number(20) primary key,
                       user_name varchar2(50) not null,
                       user_email varchar2(255) unique not null ,
                       user_password varchar2(255) not null,
-                      user_birthday varchar2(3),
+                      user_birthday DATE,
                       user_gender char(3),
                       user_state varchar2(20) default '취준생' not null,
                       user_grade number(1),
@@ -285,6 +285,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
