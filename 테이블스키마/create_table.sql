@@ -38,7 +38,16 @@ create table company (
   company_name VARCHAR2(255) NOT NULL -- 회사 명
  );
   
-
+-- 1.3 유저 희망 회사 테이블 생성
+create table user_hope_company (
+  user_id number(20) not null,
+  hope_company_id number(20) not null
+  company_name VARCHAR2(255) NOT NULL 
+  PRIMARY KEY (user_id, hope_company_id)
+  FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (hope_company_id) REFERENCES company(company_id) ON DELETE CASCADE
+  );
+  
 
 
 -- 2. 직종 종류 테이블 생성
@@ -285,6 +294,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
