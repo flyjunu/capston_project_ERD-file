@@ -1,6 +1,5 @@
 -- 1.유저 테이블 생성
 create table users_t (user_id number(20) primary key,
-                      user_nickname varchar2(20) not null,
                       user_name varchar2(50) not null,
                       user_email varchar2(255) unique not null ,
                       user_password varchar2(255) not null,
@@ -302,6 +301,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
