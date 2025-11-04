@@ -115,6 +115,13 @@ CREATE TABLE user_departments (
     CONSTRAINT fk_ud_user FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_ud_department FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
+-- 9 새로 기술 테이블 생성(ㅠㅠ)
+CREATE TABLE skill (
+    skill_id NUMBER(20) primary key,
+    skill_name varchar(100) NOT NULL
+);
+
+
 
 -- 9. 유저 기술 테이블 생성(수정 완료)
 CREATE TABLE user_skill (
@@ -294,6 +301,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
