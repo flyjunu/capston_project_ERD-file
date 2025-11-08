@@ -58,8 +58,28 @@ CREATE SEQUENCE qna_answers_seq
     INCREMENT BY 1
     NOCACHE;
 
--- 11. 회사 테이블 자동입력
+-- 11. 회사테이블
 CREATE SEQUENCE company_seq
     START WITH 1000
     INCREMENT BY 1
     NOCACHE;
+
+-- 12. 회사 우대 자격증
+CREATE SEQUENCE company_certificate_seq
+    START WITH 1000
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 13. 회사 우대 기술
+CREATE SEQUENCE company_skill_seq
+    START WITH 1000
+    INCREMENT BY 1
+    NOCACHE;
+
+-- 14. 회사 우대 학과
+CREATE SEQUENCE company_department_seq
+    START WITH 1000
+    INCREMENT BY 1
+    NOCACHE;
+
+
