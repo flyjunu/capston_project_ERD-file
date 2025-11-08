@@ -100,7 +100,6 @@ CREATE TABLE universities (
 
 -- 7. 학과 종류 테이블 생성
 CREATE TABLE departments(
-    university_id number(20), 
     department_id number(20) primary key,
     department_name varchar2(100) not null,   
     FOREIGN KEY (university_id) REFERENCES universities(university_id) 
@@ -301,6 +300,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
