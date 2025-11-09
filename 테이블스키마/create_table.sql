@@ -72,7 +72,7 @@ CREATE TABLE certificates (
     certificate_name VARCHAR(100) NOT NULL, --자격증 이름
     issuing_authority VARCHAR(100) NOT NULL, -- 자격증 발급 기관
     certificate_category VARCHAR(50), -- 자격증 분류(모두국가기술자격증:기능장, 기술사, 기사, 산업기사, 기능사)
-    pass_rate NUMBER(4, 1);
+    pass_rate NUMBER(4, 1)
   );
 
 -- 5. 유저 자격증 목록 테이블 생성
@@ -301,6 +301,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
