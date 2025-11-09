@@ -35,6 +35,7 @@ where B.user_id = :user_id;
 -- (1) 인덱스 생성 
 create index user_certificates_info_idx01 on user_certificates_info(user_id)
 
+/*
 -- (2) 조회 SQL
 select /*+ leading(A B) use_nl(B) index(A) index(B)*/ 
     A.issue_date as 취득일, B.certificate_name as 자격증명, 
@@ -43,7 +44,46 @@ select /*+ leading(A B) use_nl(B) index(A) index(B)*/
 from user_certificates_info A, certificates B 
 where A.user_id = :user_id
 and B.certificate_id = A.user_certificate_id;
+*/
 
+-- (3) 점수 포함한 신규 SQL
+
+SELECT
+    uci.user_certificate_id,
+    uci.user_id,
+    uci.certificate_id,
+    uci.issue_date,
+    uci.expiration_date,
+    uci.certificate_number,
+    uci.score AS raw_score,
+    c.certificate_name,
+    c.certificate_category,
+    c.pass_rate,
+    CASE c.certificate_category
+        WHEN '기능사'   THEN 1
+        WHEN '산업기사' THEN 2
+        WHEN '기사'     THEN 3
+        WHEN '기능장'   THEN 4
+        WHEN '기술사'   THEN 5
+        ELSE 0
+    END
+    +
+    CASE
+        WHEN c.pass_rate < 10 THEN 5
+        WHEN c.pass_rate < 30 THEN 4
+        WHEN c.pass_rate < 50 THEN 3
+        WHEN c.pass_rate < 70 THEN 2
+        ELSE 1
+    END AS total_score
+FROM user_certificates_info uci
+JOIN certificates c
+  ON c.certificate_id = uci.certificate_id
+WHERE uci.user_id = :user_id
+ORDER BY uci.issue_date DESC NULLS LAST;
+
+commit;    
+
+    
 -- 5. 유저 대/내외 활동 내역 조회
 -- (1) 인덱스 생성 
 create index user_activities_idx01 on user_activities(user_id);
@@ -54,3 +94,5 @@ select /*+ index(user_activities)*/ activity_type as 활동_종류, activity_nam
     end_date as 활동종료일, activity_description as 활동상세내역
 from user_activities    
 where user_id = :user_id;
+
+-- 6. 
