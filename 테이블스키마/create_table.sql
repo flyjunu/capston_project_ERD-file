@@ -286,32 +286,34 @@ CREATE TABLE user_profiles (
 
 -- 21. 회사 요구기술 테이블
 CREATE TABLE company_skill (
-    company_id NUMBER(20) NOT NULL, -- 회사 id
-    skill_name VARCHAR2(100) NOT NULL, -- 기술 id
-    skill_type VARCHAR2(20) NOT NULL, -- 기술 타입(우대, 필수요건)
-    CONSTRAINT pk_company_skill PRIMARY KEY (company_id, skill_name),
-    CONSTRAINT fk_company_skill_company FOREIGN KEY (company_id) REFERENCES company(company_id),
+    company_id NUMBER(20) NOT NULL,
+    job_id NUMBER(5) NOT NULL,
+    skill_name VARCHAR2(100) NOT NULL,
+    skill_type VARCHAR2(20) NOT NULL,
+    CONSTRAINT pk_company_skill PRIMARY KEY (company_id, job_id, skill_name),
+    CONSTRAINT fk_skill_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT chk_skill_type CHECK (skill_type IN ('필수', '우대')) 
 );
 
 -- 22. 회사 우대 자격증 테이블
 CREATE TABLE company_certificate (
     company_id NUMBER(20) NOT NULL,
+    job_id NUMBER(5) NOT NULL,
     certificate_id INT NOT NULL,
-    CONSTRAINT pk_company_certificate PRIMARY KEY (company_id, certificate_id),
-    CONSTRAINT fk_comp_cert_company FOREIGN KEY (company_id) REFERENCES company(company_id),
+    CONSTRAINT pk_company_certificate PRIMARY KEY (company_id, job_id, certificate_id),
+    CONSTRAINT fk_cert_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_cert_certificate FOREIGN KEY (certificate_id) REFERENCES certificates(certificate_id)
 );
 
 -- 23. 회사 우대 학과 테이블
 CREATE TABLE company_department (
     company_id NUMBER(20) NOT NULL,
+    job_id NUMBER(5) NOT NULL,
     department_id NUMBER(20) NOT NULL,
-    CONSTRAINT pk_company_department PRIMARY KEY (company_id, department_id),
-    CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
+    CONSTRAINT pk_company_department PRIMARY KEY (company_id, job_id, department_id),
+    CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
-
 
 
 
