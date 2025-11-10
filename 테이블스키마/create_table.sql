@@ -37,6 +37,16 @@ create table company (
   company_id number(20) primary key, --회사 id
   company_name VARCHAR2(255) NOT NULL -- 회사 명
  );
+
+-- 1.3. 회사가 모집한적 있는 구인 직종들(회사 우대사항들에서 사용할 것임)
+CREATE TABLE company_job_role (
+    company_id NUMBER(20) NOT NULL,
+    job_id NUMBER(5) NOT NULL,
+    CONSTRAINT pk_company_job_role PRIMARY KEY (company_id, job_id),
+    CONSTRAINT fk_cjr_company FOREIGN KEY (company_id) REFERENCES company(company_id) ON DELETE CASCADE,
+    CONSTRAINT fk_cjr_job FOREIGN KEY (job_id) REFERENCES job_categories(job_id) ON DELETE CASCADE
+);
+
   
 -- 1.3 유저 희망 회사 테이블 생성
 create table user_hope_company (
@@ -87,6 +97,7 @@ CREATE TABLE user_certificates_info (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id),
     FOREIGN KEY (certificate_id) REFERENCES certificates(certificate_id)
 );
+
 
 -- 6. 대학 정보 테이블 
 CREATE TABLE universities (
@@ -300,6 +311,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_comp_dept_company FOREIGN KEY (company_id) REFERENCES company(company_id),
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
