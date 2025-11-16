@@ -17,7 +17,7 @@ create table users_t (user_id number(20) primary key,
                       CONSTRAINT chk_gender_01 CHECK (user_gender IN ('남', '여')),
                       CONSTRAINT chk_state_01 CHECK (user_state IN ('대학생', '졸업자', '취준생'))); 
 
--- 1.1 인증 테이블 생성(회원 가입시 이메일인증, 비밀번호 변경 시 사용)
+-- 2 인증 테이블 생성(회원 가입시 이메일인증, 비밀번호 변경 시 사용)
 CREATE TABLE auth_codes (
     auth_id         NUMBER(20) PRIMARY KEY,             -- 인증 고유 ID
     user_email      VARCHAR2(255) NOT NULL,             -- 사용자 이메일 (users_t와 연결)
@@ -32,13 +32,13 @@ CREATE TABLE auth_codes (
 
 CREATE SEQUENCE seq_auth_codes;
 
--- 1.2 회사 테이블 생성
+-- 3. 회사 테이블 생성
 create table company (
   company_id number(20) primary key, --회사 id
   company_name VARCHAR2(255) NOT NULL -- 회사 명
  );
 
--- 1.3. 회사가 모집한적 있는 구인 직종들(회사 우대사항들에서 사용할 것임)
+-- 4. 회사가 모집한적 있는 구인 직종들(회사 우대사항들에서 사용할 것임)
 CREATE TABLE company_job_role (
     company_id NUMBER(20) NOT NULL,
     job_id NUMBER(5) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE company_job_role (
 );
 
   
--- 1.3 유저 희망 회사 테이블 생성
+-- 5. 유저 희망 회사 테이블 생성
 create table user_hope_company (
   user_id number(20) not null,
   hope_company_id number(20) not null
@@ -60,14 +60,14 @@ create table user_hope_company (
   
 
 
--- 2. 직종 종류 테이블 생성
+-- 6. 직종 종류 테이블 생성
 CREATE TABLE job_categories (
     job_id NUMBER(5) PRIMARY KEY, --직업 이름
     parent_job_id NUMBER(5), -- 상위 직업 이름
     job_name VARCHAR2(50) UNIQUE NOT NULL
 );
 
--- 3. 유저 희망직종 생성
+-- 7. 유저 희망직종 생성
 CREATE TABLE user_job_preferences (
     user_id NUMBER(20),
     hope_job_id NUMBER(5), 
@@ -76,7 +76,7 @@ CREATE TABLE user_job_preferences (
     FOREIGN KEY (hope_job_id) REFERENCES job_categories(job_id) ON DELETE CASCADE
 );
 
--- 4. 자격증 종류 테이블 생성(모든 종류의 레벨관련 컬럼들 삭제)
+-- 8. 자격증 종류 테이블 생성(모든 종류의 레벨관련 컬럼들 삭제)
 CREATE TABLE certificates (
     certificate_id INT PRIMARY KEY,
     certificate_name VARCHAR(100) NOT NULL, --자격증 이름
@@ -85,7 +85,7 @@ CREATE TABLE certificates (
     pass_rate NUMBER(4, 1)
   );
 
--- 5. 유저 자격증 목록 테이블 생성
+-- 9. 유저 자격증 목록 테이블 생성
 CREATE TABLE user_certificates_info (
     user_certificate_id INT PRIMARY KEY, -- 유저 자격증 구분용도(like: 시퀸스)
     user_id INT NOT NULL, -- 유저 id
@@ -99,7 +99,7 @@ CREATE TABLE user_certificates_info (
 );
 
 
--- 6. 대학 정보 테이블 
+-- 10. 대학 정보 테이블 
 CREATE TABLE universities (
     university_id         NUMBER(20) PRIMARY KEY,          -- 학교코드
     university_name         VARCHAR2(100) NOT NULL,          -- 학교명
@@ -110,13 +110,13 @@ CREATE TABLE universities (
     university_level        NUMBER                           -- 학교수준
 );
 
--- 7. 학과 종류 테이블 생성
+-- 11. 학과 종류 테이블 생성
 CREATE TABLE departments(
     department_id number(20) primary key,
     department_name varchar2(100) not null 
 );
 
--- 8. 유저 학과 테이블 생성
+-- 12. 유저 학과 테이블 생성
 CREATE TABLE user_departments (
     user_id          NUMBER(20) NOT NULL,
     department_id    NUMBER(20) NOT NULL,
@@ -125,15 +125,14 @@ CREATE TABLE user_departments (
     CONSTRAINT fk_ud_user FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_ud_department FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
--- 9 새로 기술 테이블 생성(ㅠㅠ)
+
+-- 13. 새로 기술 테이블 생성(ㅠㅠ)
 CREATE TABLE skill (
     skill_id NUMBER(20) primary key,
     skill_name varchar(100) NOT NULL
 );
 
-
-
--- 9. 유저 기술 테이블 생성(수정 완료)
+-- 14. 유저 기술 테이블 생성(수정 완료)
 CREATE TABLE user_skill (
     user_id NUMBER(20) NOT NULL,
     skill_name varchar(100) NOT NULL,
@@ -141,7 +140,7 @@ CREATE TABLE user_skill (
     CONSTRAINT fk_user_skill_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 10. 유저 대/내외 활동 내역 테이블
+-- 15. 유저 대/내외 활동 내역 테이블
 CREATE TABLE user_activities (
     activity_id NUMBER(20) primary key,
     user_id NUMBER(20) not null,
@@ -153,7 +152,7 @@ CREATE TABLE user_activities (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
 
--- 11. 대/내외 활동 게시판 테이블
+-- 16. 대/내외 활동 게시판 테이블
 CREATE TABLE activity_postings (
     posting_id NUMBER(20) PRIMARY KEY, -- 공고의 고유 ID
     user_id NUMBER(20) NOT NULL, -- 작성자 표기
@@ -172,7 +171,7 @@ CREATE TABLE activity_postings (
     CONSTRAINT fk_ap_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 12. 팀원 모집 게시판 테이블 생성
+-- 17. 팀원 모집 게시판 테이블 생성
 CREATE TABLE team_recruitments (
     recruitment_id NUMBER(20) PRIMARY KEY, -- 팀원 모집 게시글의 고유 ID
     posting_id NUMBER(20),  -- 내부공고
@@ -190,7 +189,7 @@ CREATE TABLE team_recruitments (
     CONSTRAINT chk_tr_status CHECK (status IN ('모집중', '모집완료'))
 );
 
--- 13. 팀원모집 지원자 목록
+-- 18. 팀원모집 지원자 목록
 CREATE TABLE team_applications (
     application_id NUMBER(20) PRIMARY KEY, -- 지원 신청의 고유 ID
     recruitment_id NUMBER(20) NOT NULL, -- 지원하려는 팀 모집 게시글 ID
@@ -204,7 +203,7 @@ CREATE TABLE team_applications (
     CONSTRAINT uq_application UNIQUE (recruitment_id, applicant_user_id)
 );
 
--- 14. 결성된 팀원 테이블
+-- 19. 결성된 팀원 테이블
 CREATE TABLE team_members (
     recruitment_id NUMBER(20) NOT NULL, -- 팀 모집 게시글 ID (team_recruitments 참조)
     user_id NUMBER(20) NOT NULL, -- 팀에 속한 사용자의 ID (users_t 참조)
@@ -215,7 +214,7 @@ CREATE TABLE team_members (
     CONSTRAINT fk_tm_user FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
 
---- 15. 공지사항 게시판 테이블
+-- 20. 공지사항 게시판 테이블
 CREATE TABLE notices (
     notice_id NUMBER(20) PRIMARY KEY,
     user_id NUMBER(20) NOT NULL, -- 작성자 표기용도
@@ -226,7 +225,7 @@ CREATE TABLE notices (
     CONSTRAINT fk_notices_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 16. 직종별 게시판 테이블 
+-- 21. 직종별 게시판 테이블 
 CREATE TABLE job_community_board (
     post_id NUMBER(20) PRIMARY KEY,
     job_id NUMBER(5) NOT NULL,
@@ -240,7 +239,7 @@ CREATE TABLE job_community_board (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 17. QnA 게시판(질문) 테이블 생성
+-- 22. QnA 게시판(질문) 테이블 생성
 CREATE TABLE qna_questions (
     question_id NUMBER(20) PRIMARY KEY,
     user_id NUMBER(20) NOT NULL,
@@ -254,7 +253,7 @@ CREATE TABLE qna_questions (
     CONSTRAINT chk_question_status CHECK (status IN ('답변 대기', '답변 완료'))
 );
 
--- 18. QnA 게시판(답변) 테이블 생성
+-- 23. QnA 게시판(답변) 테이블 생성
 CREATE TABLE qna_answers (
     answer_id NUMBER(20) PRIMARY KEY,
     question_id NUMBER(20) NOT NULL,
@@ -267,7 +266,7 @@ CREATE TABLE qna_answers (
    
 );
 
--- 19. 유저 비교 대학선택 저장 테이블
+-- 24. 유저 비교 대학선택 저장 테이블
 create table user_compare_university (
     university_id number(20) not null,  
     user_id number(20) not null,
@@ -275,7 +274,7 @@ create table user_compare_university (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id)
     );
 
--- 20. 유저 프로핑 저장 테이블
+-- 25. 유저 프로핑 저장 테이블
 CREATE TABLE user_profiles (
     user_id NUMBER(20) PRIMARY KEY, 
     profile_image_url VARCHAR2(1000),
@@ -284,7 +283,7 @@ CREATE TABLE user_profiles (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE
 );
 
--- 21. 회사 요구기술 테이블
+-- 26. 회사 요구기술 테이블
 CREATE TABLE company_skill (
     company_id NUMBER(20) NOT NULL,
     job_id NUMBER(5) NOT NULL,
@@ -295,7 +294,7 @@ CREATE TABLE company_skill (
     CONSTRAINT chk_skill_type CHECK (skill_type IN ('필수', '우대')) 
 );
 
--- 22. 회사 우대 자격증 테이블
+-- 27. 회사 우대 자격증 테이블
 CREATE TABLE company_certificate (
     company_id NUMBER(20) NOT NULL,
     job_id NUMBER(5) NOT NULL,
@@ -305,7 +304,7 @@ CREATE TABLE company_certificate (
     CONSTRAINT fk_comp_cert_certificate FOREIGN KEY (certificate_id) REFERENCES certificates(certificate_id)
 );
 
--- 23. 회사 우대 학과 테이블
+-- 28. 회사 우대 학과 테이블
 CREATE TABLE company_department (
     company_id NUMBER(20) NOT NULL,
     job_id NUMBER(5) NOT NULL,
@@ -314,6 +313,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
