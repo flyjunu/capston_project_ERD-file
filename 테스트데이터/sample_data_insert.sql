@@ -1,3 +1,5 @@
+이 데이터는 현재 사용하지 않고 직접 데이터를 넣었음으로, DB에서 직접 조회할것.
+
 -- 1. user_t 테스트 데이터 삽입
 
 INSERT INTO users_t (user_id, user_name, user_email, user_age, user_gender, user_state, user_grade, user_university_id, user_roadmap, user_password)
@@ -195,6 +197,7 @@ INSERT INTO user_profiles (user_id, profile_image_url, profile_link, profile_int
 
 
 commit;
+
 
 
 
