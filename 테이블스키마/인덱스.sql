@@ -3,10 +3,12 @@
 -- 2. 인증 테이블(auth_codes)
 
 -- 3. 회사 테이블(company)
-
+create index company_idx01 on company(company_name);
+  
 -- 4. 회사 구인 직종(company_job_role) 
 
 -- 5. 유저 희망 회사 테이블(user_hope_company)
+create index user_hope_company_idx01 on user_hope_company(user_id)
 
 -- 6. 직종 종류 테이블(job_categories)
 create index job_categories_idx01 on job_categories(parent_job_id);
@@ -15,9 +17,10 @@ create index job_categories_idx01 on job_categories(parent_job_id);
 create index user_job_preferences_idx01 on user_job_preferences(user_id);
 
 -- 8. 자격증 종류 테이블(certificates)
-
+create index certificates_idx01 on certificates(certificate_name);
+  
 -- 9. 유저 자격증 목록 테이블(user_certificates_info)
-create index user_certificates_info_idx01 on user_certificates_info(user_id)
+create index user_certificates_info_idx01 on user_certificates_info(user_id);
   
 -- 10. 대학 정보 테이블(universities)
 
