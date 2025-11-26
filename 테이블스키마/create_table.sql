@@ -124,7 +124,9 @@ CREATE TABLE user_departments (
     CONSTRAINT pk_user_departments PRIMARY KEY (user_id, department_id),
     CONSTRAINT fk_ud_user FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_ud_department FOREIGN KEY (department_id) REFERENCES departments(department_id)
-);
+  );
+alter table user_departments add check (major_type in ('주전공', '부전공', '복수전공', '연계전공', '융합전공', '마이크로디그리'));
+
 
 -- 13. 새로 기술 테이블 생성(ㅠㅠ)
 CREATE TABLE skill (
@@ -313,6 +315,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
