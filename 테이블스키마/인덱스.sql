@@ -23,6 +23,7 @@ create index certificates_idx01 on certificates(certificate_name);
 create index user_certificates_info_idx01 on user_certificates_info(user_id);
   
 -- 10. 대학 정보 테이블(universities)
+create index UNIVERSITIES_idx01 on UNIVERSITIES(UNIVERSITY_NAME);
 
 -- 11. 학과 종류 테이블(departments)
 
