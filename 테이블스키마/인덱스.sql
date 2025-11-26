@@ -46,7 +46,7 @@ CREATE INDEX activity_postings_idx01 ON activity_postings (activity_type, recrui
 -- 17. 팀원 모집 게시판 테이블(team_recruitments)
 
 -- 18. 팀원 모집 지원자 테이블(team_applications)
-
+create index TEAM_APPLICATIONS_idx01 on TEAM_APPLICATIONS (APPLICANT_USER_ID);
 -- 19. 결성된 팀원 테이블(team_members)
 
 -- 20. 공지사항 테이블(notices)
