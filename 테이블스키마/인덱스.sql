@@ -26,6 +26,8 @@ create index user_certificates_info_idx01 on user_certificates_info(user_id);
 create index UNIVERSITIES_idx01 on UNIVERSITIES(UNIVERSITY_NAME);
 
 -- 11. 학과 종류 테이블(departments)
+create index DEPARTMENTS_idx01 on DEPARTMENTS(DEPARTMENT_ID, DEPARTMENT_NAME);
+create index DEPARTMENTS_idx02 on DEPARTMENTS(DEPARTMENT_NAME);
 
 -- 12. 유저 학과 테이블(user_departments)
 create index user_departments_idx01 on user_departments(user_id);
