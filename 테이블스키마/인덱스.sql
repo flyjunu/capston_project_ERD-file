@@ -44,6 +44,7 @@ create index user_activities_idx01 on user_activities(user_id);
 CREATE INDEX activity_postings_idx01 ON activity_postings (activity_type, recruitment_end_date);
 
 -- 17. 팀원 모집 게시판 테이블(team_recruitments)
+create index TEAM_RECRUITMENTS_idx01 on TEAM_RECRUITMENTS (AUTHOR_USER_ID);
 
 -- 18. 팀원 모집 지원자 테이블(team_applications)
 create index TEAM_APPLICATIONS_idx01 on TEAM_APPLICATIONS (APPLICANT_USER_ID);
