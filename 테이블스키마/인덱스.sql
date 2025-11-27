@@ -39,6 +39,8 @@ create index user_skill_idx01 on user_skill(user_id);
 
 -- 15. 유저 대/내외 활동 내역 테이블(user_activities)
 create index user_activities_idx01 on user_activities(user_id);
+create index user_activities_idx02 on user_activities(activity_type, user_id);
+
 
 -- 16. 대/내외 활동 게시판 테이블(activity_postings)
 CREATE INDEX activity_postings_idx01 ON activity_postings (activity_type, recruitment_end_date);
