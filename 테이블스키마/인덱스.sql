@@ -21,7 +21,8 @@ create index certificates_idx01 on certificates(certificate_name);
   
 -- 9. 유저 자격증 목록 테이블(user_certificates_info)
 create index user_certificates_info_idx01 on user_certificates_info(user_id);
-  
+create index user_certificates_info_idx02 on user_certificates_info(certificate_id, score);
+
 -- 10. 대학 정보 테이블(universities)
 create index UNIVERSITIES_idx01 on UNIVERSITIES(UNIVERSITY_NAME);
 
