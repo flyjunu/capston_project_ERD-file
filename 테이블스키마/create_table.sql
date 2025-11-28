@@ -241,6 +241,18 @@ CREATE TABLE job_community_board (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
+-- 21-1. 직종별 게시판 답글 테이블 
+CREATE TABLE job_community_board_answer (
+    answer_id      NUMBER(20) PRIMARY KEY,          -- 답글 고유 ID
+    post_id        NUMBER(20) NOT NULL,             -- 원본 게시글 ID (FK)
+    user_id        NUMBER(20) NOT NULL,             -- 작성자 ID (FK)
+    answer_content CLOB NOT NULL,                   -- 답글 내용
+    created_at     TIMESTAMP DEFAULT SYSTIMESTAMP,  -- 작성일
+    CONSTRAINT fk_answer_post FOREIGN KEY (post_id) REFERENCES job_community_board(post_id) ON DELETE CASCADE,
+    CONSTRAINT fk_answer_user FOREIGN KEY (user_id) REFERENCES users_t(user_id) ON DELETE SET NULL
+);
+
+
 -- 22. QnA 게시판(질문) 테이블 생성
 CREATE TABLE qna_questions (
     question_id NUMBER(20) PRIMARY KEY,
@@ -250,33 +262,7 @@ CREATE TABLE qna_questions (
     view_count NUMBER(10) DEFAULT 0,
     question_like_count NUMBER(10) DEFAULT 0,
     status VARCHAR2(20) DEFAULT '답변 대기',
-    created_at TIMESTAMP DEFAULT SYSTIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users_t(user_id),
-    CONSTRAINT chk_question_status CHECK (status IN ('답변 대기', '답변 완료'))
-);
-
--- 23. QnA 게시판(답변) 테이블 생성
-CREATE TABLE qna_answers (
-    answer_id NUMBER(20) PRIMARY KEY,
-    question_id NUMBER(20) NOT NULL,
-    user_id NUMBER(20) NOT NULL,
-    answer_content CLOB,
-    answer_like_count NUMBER(10) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT SYSTIMESTAMP,
-    FOREIGN KEY (question_id) REFERENCES qna_questions(question_id),
-    FOREIGN KEY (user_id) REFERENCES users_t(user_id)
-   
-);
-
--- 24. 유저 비교 대학선택 저장 테이블
-create table user_compare_university (
-    university_id number(20) not null,  
-    user_id number(20) not null,
-    CONSTRAINT pk_user_compare_university PRIMARY KEY (user_id, university_id),
-    FOREIGN KEY (user_id) REFERENCES users_t(user_id)
-    );
-
--- 25. 유저 프로핑 저장 테이블
+    created_at TIMESTAMP DEFAULT S필 저장 테이블
 CREATE TABLE user_profiles (
     user_id NUMBER(20) PRIMARY KEY, 
     profile_image_url VARCHAR2(1000),
@@ -315,6 +301,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
