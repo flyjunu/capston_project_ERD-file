@@ -241,7 +241,7 @@ CREATE TABLE job_community_board (
     FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 21-1. 직종별 게시판 답글 테이블 
+-- 21-1. 직종별 게시판 (답글) 테이블 
 CREATE TABLE job_community_board_answer (
     answer_id      NUMBER(20) PRIMARY KEY,          -- 답글 고유 ID
     post_id        NUMBER(20) NOT NULL,             -- 원본 게시글 ID (FK)
@@ -301,6 +301,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
