@@ -60,6 +60,7 @@ CREATE INDEX job_community_board_idx01 ON job_community_board (job_id, created_a
 
 -- 22. QnA 게시판(질문) 테이블(qna_questions)
 CREATE INDEX qna_questions_idx02 ON qna_questions(created_at);
+create index QNA_QUESTIONS_idx01 on QNA_QUESTIONS (USER_ID, CREATED_AT);
 
 -- 23. QnA 게시판(답변) 테이블(qna_answers)
 CREATE INDEX qna_answers_idx02 ON  qna_answers(created_at);
