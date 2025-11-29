@@ -59,10 +59,11 @@ create index TEAM_APPLICATIONS_idx01 on TEAM_APPLICATIONS (APPLICANT_USER_ID);
 CREATE INDEX job_community_board_idx01 ON job_community_board (job_id, created_at);
 
 -- 22. QnA 게시판(질문) 테이블(qna_questions)
-CREATE INDEX qna_questions_idx02 ON qna_questions(created_at);
 create index QNA_QUESTIONS_idx01 on QNA_QUESTIONS (USER_ID, CREATED_AT);
+CREATE INDEX qna_questions_idx02 ON qna_questions(created_at);
 
 -- 23. QnA 게시판(답변) 테이블(qna_answers)
+CREATE INDEX qna_answers_idx01 ON  qna_answers(user_id, created_at);
 CREATE INDEX qna_answers_idx02 ON  qna_answers(created_at);
 
 -- 24. 유저 비교대학 선택 저장 테이블 (user_compare_university) --> 이 테이블 사용?
