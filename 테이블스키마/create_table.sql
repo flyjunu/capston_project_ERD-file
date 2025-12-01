@@ -227,7 +227,7 @@ CREATE TABLE notices (
     CONSTRAINT fk_notices_user FOREIGN KEY (user_id) REFERENCES users_t(user_id)
 );
 
--- 21. 직종별 게시판 테이블 
+-- 21. 직종별 게시판 테이블 - 12-01(대댓글 기능 추가)
 CREATE TABLE job_community_board (
     post_id NUMBER(20) PRIMARY KEY,
     job_id NUMBER(5) NOT NULL,
@@ -237,8 +237,10 @@ CREATE TABLE job_community_board (
     created_at TIMESTAMP DEFAULT SYSTIMESTAMP,
     view_count NUMBER(10) DEFAULT 0,
     like_count NUMBER(10) DEFAULT 0,
+    parent_answer_id NUMBER(20),
     FOREIGN KEY (job_id) REFERENCES job_categories(job_id),
-    FOREIGN KEY (user_id) REFERENCES users_t(user_id)
+    FOREIGN KEY (user_id) REFERENCES users_t(user_id),
+    FOREIGN KEY (parent_answer_id) REFERENCES job_community_board_answer(answer_id) ON DELETE CASCADE
 );
 
 -- 21-1. 직종별 게시판 (답글) 테이블 
@@ -301,6 +303,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
