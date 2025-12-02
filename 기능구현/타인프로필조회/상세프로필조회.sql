@@ -1,6 +1,8 @@
 -- 타인의 프로필을 확인할 수 있다.
 -- 반드시 아래 4개의 인덱스가 존재해야 아래 조회문을 사용할 수 있다.
 -- 성능 튜닝 종료됨
+
+/* 이것 폐기- 따로 따로 나오는게 훨씬 편하시다고 하신다 */
 create index user_departments_idx01 on user_departments(user_id);
 create index user_certificates_info_idx01 on user_certificates_info(user_id);
 create index user_activities_idx01 on user_activities(user_id);
