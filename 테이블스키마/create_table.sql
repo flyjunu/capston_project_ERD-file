@@ -298,7 +298,7 @@ CREATE TABLE qna_answers (
    
 );
 
-- 24. 유저 비교 대학선택 저장 테이블 (-- 이거 이제 안씀.. 교수님 그때 학교 기반 추천기능 별로라했고, 직종별로 만들라 했음)
+- 24. 유저 비교 대학선택 저장 테이블 (-- 이거 이제 안씀.. 교수님 그때 학교 기반 추천기능 별로라했고, 회사별로 만들라 했음)
 create table user_compare_university (
     university_id number(20) not null,  
     user_id number(20) not null,
@@ -345,6 +345,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
