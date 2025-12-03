@@ -281,6 +281,32 @@ CREATE TABLE qna_questions (
     question_like_count NUMBER(10) DEFAULT 0,
     status VARCHAR2(20) DEFAULT '답변 대기',
     created_at TIMESTAMP DEFAULT S필 저장 테이블
+    FOREIGN KEY (user_id) REFERENCES users_t(user_id),
+    CONSTRAINT chk_question_status CHECK (status IN ('답변 대기', '답변 완료'))
+);
+
+-- 23. QnA 게시판(답변) 테이블 생성
+CREATE TABLE qna_answers (
+    answer_id NUMBER(20) PRIMARY KEY,
+    question_id NUMBER(20) NOT NULL,
+    user_id NUMBER(20) NOT NULL,
+    answer_content CLOB,
+    answer_like_count NUMBER(10) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT SYSTIMESTAMP,
+    FOREIGN KEY (question_id) REFERENCES qna_questions(question_id),
+    FOREIGN KEY (user_id) REFERENCES users_t(user_id)
+   
+);
+
+- 24. 유저 비교 대학선택 저장 테이블 (-- 이거 이제 안씀.. 교수님 그때 학교 기반 추천기능 별로라했었음..)
+create table user_compare_university (
+    university_id number(20) not null,  
+    user_id number(20) not null,
+    CONSTRAINT pk_user_compare_university PRIMARY KEY (user_id, university_id),
+    FOREIGN KEY (user_id) REFERENCES users_t(user_id)
+    );
+
+  -- 25. 유저 프로필 저장 테이블
 CREATE TABLE user_profiles (
     user_id NUMBER(20) PRIMARY KEY, 
     profile_image_url VARCHAR2(1000),
@@ -319,6 +345,7 @@ CREATE TABLE company_department (
     CONSTRAINT fk_dept_to_role FOREIGN KEY (company_id, job_id) REFERENCES company_job_role(company_id, job_id) ON DELETE CASCADE,
     CONSTRAINT fk_comp_dept_department FOREIGN KEY (department_id) REFERENCES departments(department_id) 
 );
+
 
 
 
